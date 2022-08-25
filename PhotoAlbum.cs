@@ -1,31 +1,47 @@
-namespace CollectionDefaultKata
+namespace CollectionDefaultKata;
+
+public class PhotoAlbum
 {
-  public class PhotoAlbum
+  public string CoverPhoto { get; private set; }
+
+  private List<string> _photos = new();
+
+  public IEnumerable<string> Photos
   {
-    public string CoverPhoto { get; private set; }
+    get => _photos;
+  }
 
-    private List<string> _photos = new();
+  public PhotoAlbum(string coverPhoto)
+  {
+    CoverPhoto = coverPhoto;
+    Add(coverPhoto);
+  }
 
-    public IEnumerable<string> Photos
+  public void Add(string photo)
+  {
+    if (_photos.Contains(photo))
     {
-        get => _photos;
-        private set => _photos = value.ToList();
+      return;
+    }
+    _photos.Add(photo);
+  }
+
+  public void Remove(string photo)
+  {
+    if(_photos.Count() == 1)
+    {
+      throw new InvalidOperationException("Cannot remove the only photo in the album");
+    }
+    _photos.Remove(photo);
+  }
+
+  public void SetCover(string photo)
+  {
+    if (!_photos.Contains(photo))
+    {
+      throw new ArgumentException("Photo not found in album");
     }
 
-    public PhotoAlbum(string coverPhoto)
-    {
-      CoverPhoto = coverPhoto;
-      Add(coverPhoto);
-    }
-
-    public void Add(string photo)
-    {
-      _photos.Add(photo);
-    }
-
-    public void Remove(string photo)
-    {
-      _photos.Remove(photo);
-    }
+    CoverPhoto = photo;
   }
 }
