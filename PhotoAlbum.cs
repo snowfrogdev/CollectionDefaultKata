@@ -19,10 +19,7 @@ public class PhotoAlbum
 
   public void Add(string photo)
   {
-    if (_photos.Contains(photo))
-    {
-      return;
-    }
+    if (_photos.Contains(photo)) return;
     _photos.Add(photo);
   }
 
