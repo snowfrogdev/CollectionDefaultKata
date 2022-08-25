@@ -57,6 +57,32 @@ public class PhotoAlbumTests
   }
 
   [Fact]
+  public void WhenRemovingCoverPhotoSetCoverPhotoToFirstPhotoInAlbum()
+  {
+    var photos = new string[] { "somePhoto.jpg", "someOtherPhoto.jpg", "someThirdPhoto.jpg" };
+    var album = new PhotoAlbum(photos[0]);
+    album.Add(photos[1]);
+    album.Add(photos[2]);
+    album.Remove(photos[0]);
+    Assert.Equal(photos[1], album.CoverPhoto);
+  }
+
+  [Fact]
+  public void WhenRemovingAPhotoThatIsNotTheCoverPhotoCoverPhotoShouldNotChange()
+  {
+    var photos = new string[] { "somePhoto.jpg", "someOtherPhoto.jpg", "someThirdPhoto.jpg" };
+    var album = new PhotoAlbum(photos[0]);
+    album.Add(photos[1]);
+    album.Add(photos[2]);
+
+    var coverPhoto = album.CoverPhoto;
+
+    album.Remove(photos[1]);
+
+    Assert.Equal(coverPhoto, album.CoverPhoto);
+  }
+
+  [Fact]
   public void CanSelectCoverPhotoFromAlbum()
   {
     var photos = new string[] { "somePhoto.jpg", "someOtherPhoto.jpg", "someThirdPhoto.jpg" };

@@ -32,7 +32,13 @@ public class PhotoAlbum
     {
       throw new InvalidOperationException("Cannot remove the only photo in the album");
     }
+
     _photos.Remove(photo);
+
+    if(CoverPhoto == photo)
+    {
+      CoverPhoto = _photos.First();
+    }
   }
 
   public void SetCover(string photo)
